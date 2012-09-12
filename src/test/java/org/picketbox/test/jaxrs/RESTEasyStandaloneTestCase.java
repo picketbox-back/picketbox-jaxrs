@@ -39,11 +39,11 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.webapp.WebAppContext;
 import org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher;
 import org.json.JSONObject;
 import org.junit.Test;
-import org.mortbay.jetty.servlet.ServletHolder;
-import org.mortbay.jetty.webapp.WebAppContext;
 import org.picketbox.core.util.KeyStoreUtil;
 import org.picketbox.jaxrs.filters.JWEInterceptor;
 import org.picketbox.json.token.JSONWebToken;
@@ -72,7 +72,8 @@ public class RESTEasyStandaloneTestCase extends EmbeddedWebServerBase {
         final URL warUrl = tcl.getResource(WEBAPPDIR);
         final String warUrlString = warUrl.toExternalForm();
 
-        WebAppContext context = new WebAppContext(warUrlString, CONTEXTPATH);
+        // WebAppContext context = new WebAppContext(warUrlString, CONTEXTPATH);
+        WebAppContext context = createWebApp(CONTEXTPATH, warUrlString);
 
         context.setContextPath("/");
         ServletHolder servletHolder = new ServletHolder(new HttpServletDispatcher());
